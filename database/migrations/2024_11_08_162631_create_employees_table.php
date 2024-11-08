@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name');             // Employee First Name (required)
+            $table->string('last_name');              // Employee Last Name (required)
+            $table->foreignId('company_id')           // Foreign key to companies table
+                  ->constrained()
+                  ->onDelete('cascade');
+            $table->string('email')->nullable();      // Employee Email
+            $table->string('phone')->nullable();      // Employee Phone
             $table->timestamps();
         });
     }
