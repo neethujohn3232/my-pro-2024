@@ -25,3 +25,4 @@
 <link rel="stylesheet" href="assets/css/select2.min.css">
 <!-- Main CSS -->
 <link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
