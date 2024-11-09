@@ -5,16 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::with('company')->paginate(10);
-        return view('employees.index', compact('employees'));
+        if ($request->ajax()) {
+            $employees = Employee::with('company')  
+            ->select(['id', 'first_name', 'last_name', 'company_id', 'email', 'phone', 'created_at', 'updated_at']);
+            return DataTables::of($employees)
+            ->addColumn('company_name', function($employee) {
+                return $employee->company->name ?? 'No Company'; 
+            })
+            ->toJson();
+        }
+    
+        return view('employees.index');
     }
     
     public function create()
@@ -67,7 +77,10 @@ class EmployeeController extends Controller
     
     public function destroy($id)
     {
-        Employee::findOrFail($id)->delete();
-        return redirect()->route('employees.index');
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+    
+        return response()->json(['success' => 'Employee deleted successfully']);
     }
+    
 }

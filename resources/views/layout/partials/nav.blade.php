@@ -30,7 +30,24 @@
 					</ul>
 				</li>
 				
-
+				<li class="submenu">
+					<a href="#"><i class="fas fa-border-all"></i> <span>Employees</span> <span class="menu-arrow"></span></a>
+					<ul style="display: none;">
+						<!-- Add Company Link -->
+						<li>
+							<a class="{{ Request::is('employees/create') ? 'active' : '' }}" href="{{ route('employees.create') }}">
+								Add Employee
+							</a>
+						</li>
+						<!-- Company List Link -->
+						<li>
+							<a class="{{ Request::is('employees') ? 'active' : '' }}" href="{{ route('employees.index') }}">
+								Employees List
+							</a>
+						</li>
+					</ul>
+				</li>
+				
             </ul>
         </div>
     </div>
